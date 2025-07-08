@@ -15,12 +15,33 @@ jobs:
               with:
                 distribution: 'temurin'
                 java-version: '17'
-            # - name: change directory
-            #   run: cd app-register
-            - name: code coverage
-              run: mvn $MAVEN_CLI_OPTS clean org.jacoco:jacoco-maven-plugin:prepare-agent test jacoco:report
-             
+            # - name: code coverage
+            #   run: mvn $MAVEN_CLI_OPTS clean org.jacoco:jacoco-maven-plugin:prepare-agent test jacoco:report
             - name: build with maven
               run: mvn clean package -DskipTests  
             - name: maven test
               run: mvn test
+    docker_login:
+        name: Docker login
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout source
+              uses: actions/checkout@v4
+            # - name: Login to Docker Hub
+            #   uses: docker/login-action@v2
+            #   with:
+            #     username: ${{ vars.DOCKER_USERNAME }}
+            #     password: ${{ secrets.DOCKER_PASSWORD }}
+            - name: Login to ghcr Hub
+              uses: docker/login-action@v2
+              with:
+                registry: ghcr.io
+                username: ${{ github.repository_owner }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Docker Build for testing
+              uses: docker/build-push-action@v4
+              with:
+               context: .
+               push: true
+               tags: ghcr.io/${{ github.repository_owner }}/app-register:v1.0.0
