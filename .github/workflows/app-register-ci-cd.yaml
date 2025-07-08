@@ -20,4 +20,4 @@ jobs:
             - name: build with maven
               run: mvn clean package -DskipTests  
             - name: maven test
-              run: mvn test"
+              run: mvn test
