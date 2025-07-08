@@ -17,6 +17,12 @@ jobs:
                 java-version: '17'
             # - name: change directory
             #   run: cd app-register
+            - name: code coverage
+              uses: codecov/codecov-action@v2
+              with:
+                files: 'target/site/jacoco/jacoco.xml'
+                flags: unittests
+                name: codecov-umbrella
             - name: build with maven
               run: mvn clean package -DskipTests  
             - name: maven test
