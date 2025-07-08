@@ -15,8 +15,8 @@ jobs:
               with:
                 distribution: 'temurin'
                 java-version: '17'
-            - name: change directory
-              run: cd app-register
+            # - name: change directory
+            #   run: cd app-register
             - name: build with maven
               run: mvn clean package -DskipTests  
             - name: maven test
