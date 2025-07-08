@@ -18,11 +18,8 @@ jobs:
             # - name: change directory
             #   run: cd app-register
             - name: code coverage
-              uses: codecov/codecov-action@v2
-              with:
-                files: 'target/site/jacoco/jacoco.xml'
-                flags: unittests
-                name: codecov-umbrella
+              run: mvn $MAVEN_CLI_OPTS clean org.jacoco:jacoco-maven-plugin:prepare-agent test jacoco:report
+             
             - name: build with maven
               run: mvn clean package -DskipTests  
             - name: maven test
