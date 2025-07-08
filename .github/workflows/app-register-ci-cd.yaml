@@ -13,6 +13,7 @@ jobs:
             - name: set up java
               uses: actions/setup-java@v2
               with:
+                distribution: 'temurin'
                 java-version: '17'
             - name: change directory
               run: cd app-register
